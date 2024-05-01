@@ -128,13 +128,9 @@ const ProductDetails = ({
               <span className="text-xs">Tempo</span>
               <ClockIcon size={14} />
             </div>
-            {Number(product.restaurant.deliveryTimeMinutes) > 0 ? (
-              <p className="text-sm font-semibold">
-                {product.restaurant.deliveryTimeMinutes} min
-              </p>
-            ) : (
-              <p className="text-sm font-semibold">Indefinido</p>
-            )}
+            <p className="text-sm font-semibold">
+              {product.restaurant.deliveryTimeMinutes} min
+            </p>
           </div>
         </Card>
       </div>
