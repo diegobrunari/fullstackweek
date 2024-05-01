@@ -1,5 +1,5 @@
 import { BikeIcon, ClockIcon } from "lucide-react";
-import { formatCurrency } from "../_lib/_helpers/price";
+import { formatCurrency } from "../_helpers/price";
 import { Card } from "./ui/card";
 import { Restaurant } from "@prisma/client";
 

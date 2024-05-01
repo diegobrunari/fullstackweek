@@ -6,7 +6,7 @@ import { Button } from "@/app/_components/ui/button";
 import {
   formatCurrency,
   calculateProductTotalPrice,
-} from "@/app/_lib/_helpers/price";
+} from "@/app/_helpers/price";
 import { Prisma } from "@prisma/client";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
