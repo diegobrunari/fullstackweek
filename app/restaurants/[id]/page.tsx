@@ -72,7 +72,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
           <h1 className="text-xl font-semibold">{restaurant.name}</h1>
         </div>
 
-        <div className=" flex items-center gap-1 rounded-full bg-foreground bg-white px-2 py-[2px] text-white">
+        <div className=" flex items-center gap-1 rounded-full bg-foreground px-2 py-[2px] text-white">
           <StarIcon size={12} className="fill-yellow-400 text-yellow-400" />
           <span className="text-xs font-semibold">5.0</span>
         </div>

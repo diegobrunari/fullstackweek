@@ -26,7 +26,7 @@ const RestaurantItem = ({ restaurant, className }: RestaurantItemProps) => {
             className="rounded-lg object-cover shadow-md"
           />
 
-          <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-primary bg-white px-2 py-[2px]">
+          <div className="bg-red bg-primery absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white px-2 py-[2px]">
             <StarIcon size={12} className="fill-yellow-400 text-yellow-400" />
             <span className="text-xs font-semibold">5.0</span>
           </div>
