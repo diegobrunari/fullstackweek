@@ -3,6 +3,16 @@ import Cart from "@/app/_components/cart";
 import DeliveryInfo from "@/app/_components/delivery-info";
 import DiscountBadge from "@/app/_components/discount-badge";
 import ProductList from "@/app/_components/product-list";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/app/_components/ui/alert-dialog";
 import { Button } from "@/app/_components/ui/button";
 import {
   Sheet,
@@ -39,12 +49,26 @@ const ProductDetails = ({
 }: ProductDetailsProps) => {
   const [quantity, setQuantity] = useState(1);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isConfirmationDialog, setIsConfirmationDialog] = useState(false);
 
-  const { addProductToCart } = useContext(CartContext);
+  const { addProductToCart, products } = useContext(CartContext);
 
-  const handleAddToCartClick = () => {
-    addProductToCart(product, quantity);
+  const addToCart = ({ emptyCard }: { emptyCard?: boolean }) => {
+    addProductToCart({ product, quantity, emptyCard });
     setIsCartOpen(true);
+  };
+  const handleAddToCartClick = () => {
+    const hasDifferentRestaurantProduct = products.some(
+      (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
+    );
+
+    if (hasDifferentRestaurantProduct) {
+      return setIsConfirmationDialog(true);
+    }
+
+    addToCart({
+      emptyCard: false,
+    });
   };
 
   const handleIncreaseQuantityClick = () =>
@@ -136,7 +160,7 @@ const ProductDetails = ({
             className="w-full font-semibold"
             onClick={handleAddToCartClick}
           >
-            Adicionar a sacola
+            Adicionar à sacola
           </Button>
         </div>
       </div>
@@ -149,6 +173,26 @@ const ProductDetails = ({
           <Cart />
         </SheetContent>
       </Sheet>
+
+      <AlertDialog
+        open={isConfirmationDialog}
+        onOpenChange={setIsConfirmationDialog}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Essa ação pode fazer com que seu carrinho seja esvaziado.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={() => addToCart({ emptyCard: true })}>
+              Esvaziar sacola e adicionar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };

@@ -22,7 +22,11 @@ interface ICartContext {
   totalPrice: number;
   subtotalPrice: number;
   totalDiscount: number;
-  addProductToCart: (
+  addProductToCart: ({
+    product,
+    quantity,
+    emptyCard,
+  }: {
     product: Prisma.ProductGetPayload<{
       include: {
         restaurant: {
@@ -31,9 +35,10 @@ interface ICartContext {
           };
         };
       };
-    }>,
-    quantity: number,
-  ) => void;
+    }>;
+    quantity: number;
+    emptyCard?: boolean;
+  }) => void;
   decreaseProductQuantity: (productId: string) => void;
   increaseProductQuantity: (productId: string) => void;
   removeProductFromCart: (productId: string) => void;
@@ -60,14 +65,17 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   }, [products]);
 
   const totalPrice = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return (
-        acc + Number(calculateProductTotalPrice(product)) * product.quantity
-      );
-    }, 0);
+    return (
+      products.reduce((acc, product) => {
+        return (
+          acc + Number(calculateProductTotalPrice(product)) * product.quantity
+        );
+      }, 0) + Number(products?.[0]?.restaurant?.deliveryFee)
+    );
   }, [products]);
 
-  const totalDiscount = totalPrice - subtotalPrice;
+  const totalDiscount =
+    totalPrice - subtotalPrice - Number(products?.[0]?.restaurant?.deliveryFee);
 
   const decreaseProductQuantity = (productId: string) => {
     return setProducts((prev) => {
@@ -108,7 +116,11 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const addProductToCart = (
+  const addProductToCart = ({
+    product,
+    quantity,
+    emptyCard,
+  }: {
     product: Prisma.ProductGetPayload<{
       include: {
         restaurant: {
@@ -117,9 +129,14 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
           };
         };
       };
-    }>,
-    quantity: number,
-  ) => {
+    }>;
+    quantity: number;
+    emptyCard?: boolean;
+  }) => {
+    if (emptyCard) {
+      setProducts([]);
+    }
+
     const isPorductAlreadyOnCart = products.some(
       (cartProduct) => cartProduct.id === product.id,
     );
