@@ -36,7 +36,7 @@ const Home = async () => {
         <CategoryList />
       </div>
 
-      <div className="px-5 pt-6">
+      <div className="px-5 pt-6 duration-300 hover:scale-105">
         <PromoBanner
           src="/banner-img-01.png"
           alt="Até 30% de desconto em pizzas"
@@ -58,7 +58,7 @@ const Home = async () => {
         <ProductList products={products} />
       </div>
 
-      <div className="px-5 py-6">
+      <div className="px-5 py-6 duration-300 hover:scale-105">
         <PromoBanner
           src="/banner-img-02.png"
           alt="A partir de R$17,90 em lanches"

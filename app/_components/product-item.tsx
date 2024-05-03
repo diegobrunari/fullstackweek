@@ -24,8 +24,8 @@ const ProductItem = ({ product, className }: ProductItemProps) => {
       className={cn("w-[150px] min-w-[150px]", className)}
       href={`/products/${product.id}`}
     >
-      <div className="w-full space-y-2">
-        <div className="relative aspect-square w-full">
+      <div className="w-full space-y-2 ">
+        <div className="relative aspect-square w-full duration-300 hover:scale-105">
           <Image
             src={product.imageUrl}
             alt={product.name}
