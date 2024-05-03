@@ -62,12 +62,14 @@ const Header = () => {
                         src={data?.user?.image as string | undefined}
                       />
                       <AvatarFallback>
-                        {data?.user?.name?.split(" ")[0][0]}
+                        {data?.user?.name?.split(" ")[0][1]}
                         {data?.user?.name?.split(" ")[1][0]}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="font-semibold">{data?.user?.name}</h3>
+                      <h3 className="text-left font-semibold">
+                        {data?.user?.name}
+                      </h3>
                       <span className="block text-xs text-muted-foreground">
                         {data.user.email}
                       </span>

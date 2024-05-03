@@ -19,10 +19,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const Cart = () => {
+interface CartProps {
+  // eslint-disable-next-line no-unused-vars
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+const Cart = ({ setIsOpen }: CartProps) => {
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+  const router = useRouter();
 
   const { data } = useSession();
 
@@ -60,6 +68,15 @@ const Cart = () => {
       });
 
       clearCart();
+      setIsOpen(false);
+
+      toast("Pedido foi criado com sucesso", {
+        description: `Data do pedido ${new Date().toLocaleString()}`,
+        action: {
+          label: "Meus pedidos",
+          onClick: () => router.push(`/my-orders`),
+        },
+      });
     } catch (err) {
       console.log(err);
     } finally {
