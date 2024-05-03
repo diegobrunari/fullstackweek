@@ -10,6 +10,8 @@ export interface CartProduct
     include: {
       restaurant: {
         select: {
+          id: true;
+          deliveryTimeMinutes: true;
           deliveryFee: true;
         };
       };
@@ -32,6 +34,8 @@ interface ICartContext {
       include: {
         restaurant: {
           select: {
+            id: true;
+            deliveryTimeMinutes: true;
             deliveryFee: true;
           };
         };
@@ -43,6 +47,7 @@ interface ICartContext {
   decreaseProductQuantity: (productId: string) => void;
   increaseProductQuantity: (productId: string) => void;
   removeProductFromCart: (productId: string) => void;
+  clearCart: () => void;
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -55,6 +60,7 @@ export const CartContext = createContext<ICartContext>({
   decreaseProductQuantity: () => {},
   increaseProductQuantity: () => {},
   removeProductFromCart: () => {},
+  clearCart: () => {},
 });
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
@@ -78,6 +84,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const totalDiscount =
     totalPrice - subtotalPrice - Number(products?.[0]?.restaurant?.deliveryFee);
+
+  const clearCart = () => {
+    return setProducts([]);
+  };
 
   const totalQuantity = useMemo(() => {
     return products.reduce((acc, product) => {
@@ -179,6 +189,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         decreaseProductQuantity,
         increaseProductQuantity,
         removeProductFromCart,
+        clearCart,
       }}
     >
       {children}

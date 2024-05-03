@@ -81,7 +81,7 @@ const Header = () => {
             ) : (
               <>
                 <div className="flex items-center justify-between pt-10">
-                  <h2>Faça seu login</h2>
+                  <h2 className="text-md font-semibold">Faça seu login</h2>
                   <Button size="icon" onClick={handleSignInClick}>
                     <LogInIcon />
                   </Button>
