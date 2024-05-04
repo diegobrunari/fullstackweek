@@ -39,7 +39,7 @@ const Header = () => {
             src="/logo.png"
             alt="FSW Foods"
             fill
-            className="object-contain"
+            className="object-contain duration-500 ease-in hover:scale-105"
           />
         </Link>
       </div>
