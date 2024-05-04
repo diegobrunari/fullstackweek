@@ -40,7 +40,7 @@ const Restaurants = ({ userFavoriteRestaurants }: RestaurantProps) => {
           {restaurants.map((restaurant) => (
             <RestaurantItem
               userFavoriteRestaurants={userFavoriteRestaurants}
-              restaurant={restaurant}
+              restaurant={JSON.parse(JSON.stringify(restaurant, null, 2))}
               key={restaurant.id}
               className="min-w-full max-w-full"
             />

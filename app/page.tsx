@@ -82,7 +82,7 @@ const Home = async () => {
             <ChevronRightIcon size={16} />
           </Button>
         </div>
-        <ProductList products={products} />
+        <ProductList products={JSON.parse(JSON.stringify(products, null, 2))} />
       </div>
 
       <div className="px-5 py-6 duration-300 hover:scale-105">

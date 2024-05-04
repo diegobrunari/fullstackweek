@@ -66,7 +66,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
   return (
     <div>
       <RestaurantImage
-        restaurant={restaurant}
+        restaurant={JSON.parse(JSON.stringify(restaurant, null, 2))}
         useFavoriteRestaurants={userFavoriteRestaurant}
       />
 
@@ -90,7 +90,9 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         </div>
       </div>
       <div className="px-5">
-        <DeliveryInfo restaurant={restaurant} />
+        <DeliveryInfo
+          restaurant={JSON.parse(JSON.stringify(restaurant, null, 2))}
+        />
       </div>
 
       <div className="mt-3 flex gap-4 overflow-x-scroll px-5 duration-300 hover:scale-105 [&::-webkit-scrollbar]:hidden">
@@ -108,17 +110,23 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
 
       <div className="mt-6 space-y-4">
         <h2 className=" px-5 font-semibold">Mais Pedidos</h2>
-        <ProductList products={restaurant.products} />
+        <ProductList
+          products={JSON.parse(JSON.stringify(restaurant.products, null, 2))}
+        />
       </div>
 
       {restaurant.categories.map((category) => (
         <div className="mt-6 space-y-4" key={category.id}>
           <h2 className=" px-5 font-semibold">{category.name}</h2>
-          <ProductList products={category.products} />
+          <ProductList
+            products={JSON.parse(JSON.stringify(category.products, null, 2))}
+          />
         </div>
       ))}
 
-      <CartBanner restaurant={restaurant} />
+      <CartBanner
+        restaurant={JSON.parse(JSON.stringify(restaurant, null, 2))}
+      />
     </div>
   );
 };

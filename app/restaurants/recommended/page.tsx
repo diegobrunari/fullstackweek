@@ -29,7 +29,7 @@ const RecommendedRestaurants = async () => {
             <RestaurantItem
               userFavoriteRestaurants={userFavoriteRestaurant}
               key={restaurant.id}
-              restaurant={restaurant}
+              restaurant={JSON.parse(JSON.stringify(restaurant, null, 2))}
               className="min-w-full max-w-full"
             />
           ))}
