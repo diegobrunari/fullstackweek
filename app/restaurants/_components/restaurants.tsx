@@ -35,6 +35,7 @@ const Restaurants = () => {
         <div className="grid grid-cols-2 gap-6">
           {restaurants.map((restaurant) => (
             <RestaurantItem
+              userFavoriteRestaurants={[]}
               restaurant={restaurant}
               key={restaurant.id}
               className="min-w-full max-w-full"
